@@ -59,6 +59,130 @@ void MainWidget::on_pushButton_clicked()
     }
 
 }
+void MainWidget::slotAffrimCharge(uint user)
+{
+    //确认收取时
+    qDebug()<<"line107"<<user;
+    //寻找所需货物
+    bool ware = false;  //仓库中是否找到
+    bool shar = false;  //货架
+    uint amount_temp = 0;   //仓库货物不足需从货架取的数目
+    for(int i=0;i<user_list.at(user)->cargo_list.size();i++)
+    {
+        for(int j=0;j<warehouse.cargo_list.size();j++)
+        {
+            if(user_list.at(user)->cargo_list.at(i)->returnName()==warehouse.cargo_list.at(j)->returnName())
+            {
+                //仓库中找到
+                ware = true;
+                qDebug()<<"cangku zhao dao ";
+
+                if(user_list.at(user)->cargo_list.at(i)->returnAmount() <= warehouse.cargo_list.at(j)->returnAmount())
+                {
+                    //仓库中够
+                    qDebug()<<"cangku gou";
+                    warehouse.cargo_list.at(j)->reduceAmount(user_list.at(user)->cargo_list.at(i)->returnAmount());
+
+
+
+
+                }else{
+                    //仓库中不够，需要从货架找
+                    warehouse.cargo_list.at(j)->reduceAmount(warehouse.cargo_list.at(j)->returnAmount());
+                    amount_temp = user_list.last()->cargo_list.at(i)->returnAmount() - warehouse.cargo_list.at(j)->returnAmount();
+
+                    for(int j=0;j<shelf.cargo_list.size();j++)
+                    {
+                        if(user_list.at(user)->cargo_list.at(i)->returnName()==shelf.cargo_list.at(j)->returnName())
+                        {
+                            //货架中找到
+                            shar = true;
+                            qDebug()<<"cangku bu gou huojia zhao dao ";
+                            qDebug()<<amount_temp;
+
+                            if(amount_temp <= shelf.cargo_list.at(j)->returnAmount())
+                            {
+                                //货架中够
+                                qDebug()<<"cangku bu gou,huojia gou";
+                                shelf.cargo_list.at(j)->reduceAmount(amount_temp);
+
+
+
+
+                            }else{
+                                //货架中不够
+                                qDebug()<<"cangku bu gou,huojia bu gou";
+
+
+
+                            }
+                        }else{
+                            if(j==shelf.cargo_list.size()-1&&shar == false)
+                            {
+                                //货架中未找到
+                                qDebug()<<"cangku bu gou huojia wei zhao";
+
+
+                            }
+
+                        }
+
+
+
+                    }
+                }
+            }else{
+                if(j == warehouse.cargo_list.size()-1&&ware == false)
+                {
+                    qDebug()<<j<<" "<<warehouse.cargo_list.size()-1;
+                    //仓库中未找到，需要从货架找
+                    for(int j=0;j<shelf.cargo_list.size();j++)
+                    {
+                        if(user_list.at(user)->cargo_list.at(i)->returnName()==shelf.cargo_list.at(j)->returnName())
+                        {
+                            //货架中找到
+                            shar = true;
+
+
+                            if(amount_temp <= shelf.cargo_list.at(j)->returnAmount())
+                            {
+                                //货架中够
+                                qDebug()<<"cangku bu weizhao dao huo jia zhong gou";
+                                shelf.cargo_list.at(j)->reduceAmount(user_list.at(user)->cargo_list.at(i)->returnAmount());
+
+
+
+
+                            }else{
+                                //货架中不够
+                                qDebug()<<"cangku bu weizhao dao huo jia zhong bu ";
+
+                            }
+                        }else{
+                            if(j==shelf.cargo_list.size()-1&&shar == false)
+                            {
+                                //货架中未找到
+                                qDebug()<<"cangku wu huojia wei zhao";
+                                //货架与仓库中未找到货物
+
+
+
+                            }
+                        }
+
+
+
+                    }
+
+                }
+            }
+
+
+        }
+
+    }
+
+}
 
 void MainWidget::getCargo()
 {
@@ -380,12 +504,7 @@ void MainWidget::getCargo()
 
 }
 
-void MainWidget::slotAffrimCharge(uint user)
-{
-    //确认收取时
-    qDebug()<<"line107"<<user;
 
-}
 
 void MainWidget::on_amount_1_editingFinished()
 {
