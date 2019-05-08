@@ -28,15 +28,20 @@ SOURCES += \
         main.cpp \
         mainwidget.cpp \
     cargo.cpp \
-    user.cpp
+    user.cpp \
+    stockpile.cpp \
+    mymessagebox.cpp
 
 HEADERS += \
         mainwidget.h \
     cargo.h \
-    user.h
+    user.h \
+    stockpile.h \
+    mymessagebox.h
 
 FORMS += \
-        mainwidget.ui
+        mainwidget.ui \
+    mymessagebox.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -56,6 +56,7 @@ public:
 
         amount_1 = new QSpinBox(frame);
         amount_1->setObjectName(QString::fromUtf8("amount_1"));
+        amount_1->setMaximum(1000);
         amount_1->setDisplayIntegerBase(10);
 
         gridLayout->addWidget(amount_1, 1, 1, 1, 1);

@@ -7,13 +7,20 @@ class Cargo
 {
 public:
     Cargo();
-    void scan(QString name,uint amo);    //赋值
+    void scan(QString name,uint amo ,double pri,uint wig,QString exp);    //赋值
     QString returnName();   //返回商品名称
     uint returnAmount();    //返回商品数目
+    double returnPrice();
+    uint returnWight();
+    QString returnExplain();
+    void reduceAmount(uint amo);    //减少数量
+
+private:
     QString cargo_name; //商品名称
     uint amount;    //需要的数目
-private:
-
+    double price; //单价
+    uint wight; //重量
+    QString explain;    //说明
 
 };
 

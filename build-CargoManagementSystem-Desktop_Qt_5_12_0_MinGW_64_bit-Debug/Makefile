@@ -222,6 +222,7 @@ Makefile: ../CargoManagementSystem/CargoManagementSystem.pro F:/Qt/5.12.0/mingw7
 		F:/Qt/5.12.0/mingw73_64/mkspecs/features/qt_config.prf \
 		F:/Qt/5.12.0/mingw73_64/mkspecs/win32-g++/qmake.conf \
 		F:/Qt/5.12.0/mingw73_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		F:/Qt/5.12.0/mingw73_64/mkspecs/features/exclusive_builds.prf \
 		F:/Qt/5.12.0/mingw73_64/mkspecs/features/toolchain.prf \
 		F:/Qt/5.12.0/mingw73_64/mkspecs/features/default_pre.prf \
@@ -411,6 +412,7 @@ F:/Qt/5.12.0/mingw73_64/mkspecs/features/qt_functions.prf:
 F:/Qt/5.12.0/mingw73_64/mkspecs/features/qt_config.prf:
 F:/Qt/5.12.0/mingw73_64/mkspecs/win32-g++/qmake.conf:
 F:/Qt/5.12.0/mingw73_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 F:/Qt/5.12.0/mingw73_64/mkspecs/features/exclusive_builds.prf:
 F:/Qt/5.12.0/mingw73_64/mkspecs/features/toolchain.prf:
 F:/Qt/5.12.0/mingw73_64/mkspecs/features/default_pre.prf:
