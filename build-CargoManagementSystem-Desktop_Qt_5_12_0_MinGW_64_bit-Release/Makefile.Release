@@ -5,19 +5,19 @@
 # Template: app
 #############################################################################
 
-MAKEFILE      = Makefile.Debug
+MAKEFILE      = Makefile.Release
 
 ####### Compiler, tools and options
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
-CFLAGS        = -fno-keep-inline-dllexport -g -Wall -W -Wextra $(DEFINES)
-CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I..\CargoManagementSystem -I. -IF:\Qt\5.12.0\mingw73_64\include -IF:\Qt\5.12.0\mingw73_64\include\QtWidgets -IF:\Qt\5.12.0\mingw73_64\include\QtGui -IF:\Qt\5.12.0\mingw73_64\include\QtANGLE -IF:\Qt\5.12.0\mingw73_64\include\QtSql -IF:\Qt\5.12.0\mingw73_64\include\QtCore -Idebug -I. -I\include -IF:\Qt\5.12.0\mingw73_64\mkspecs\win32-g++ 
+DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
+CFLAGS        = -fno-keep-inline-dllexport -O2 -Wall -W -Wextra $(DEFINES)
+CXXFLAGS      = -fno-keep-inline-dllexport -O2 -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
+INCPATH       = -I..\CargoManagementSystem -I. -IF:\Qt\5.12.0\mingw73_64\include -IF:\Qt\5.12.0\mingw73_64\include\QtWidgets -IF:\Qt\5.12.0\mingw73_64\include\QtGui -IF:\Qt\5.12.0\mingw73_64\include\QtANGLE -IF:\Qt\5.12.0\mingw73_64\include\QtSql -IF:\Qt\5.12.0\mingw73_64\include\QtCore -Irelease -I. -I\include -IF:\Qt\5.12.0\mingw73_64\mkspecs\win32-g++ 
 LINKER      =        g++
-LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        -LF:\Qt\5.12.0\mingw73_64\lib F:\Qt\5.12.0\mingw73_64\lib\libQt5Widgetsd.a F:\Qt\5.12.0\mingw73_64\lib\libQt5Guid.a F:\Qt\5.12.0\mingw73_64\lib\libQt5Sqld.a F:\Qt\5.12.0\mingw73_64\lib\libQt5Cored.a  -lmingw32 F:\Qt\5.12.0\mingw73_64\lib\libqtmaind.a -LC:\openssl\lib -LC:\Utils\my_sql\mysql-5.6.11-winx64\lib -LC:\Utils\postgresql\pgsql\lib -lshell32 -LF:\Qt\5.12.0\mingw73_64\lib F:\Qt\5.12.0\mingw73_64\lib\libQt5Cored.a 
+LFLAGS        =        -Wl,-s -Wl,-subsystem,windows -mthreads
+LIBS        =        -LF:\Qt\5.12.0\mingw73_64\lib F:\Qt\5.12.0\mingw73_64\lib\libQt5Widgets.a F:\Qt\5.12.0\mingw73_64\lib\libQt5Gui.a F:\Qt\5.12.0\mingw73_64\lib\libQt5Sql.a F:\Qt\5.12.0\mingw73_64\lib\libQt5Core.a  -lmingw32 F:\Qt\5.12.0\mingw73_64\lib\libqtmain.a -LC:\openssl\lib -LC:\Utils\my_sql\mysql-5.6.11-winx64\lib -LC:\Utils\postgresql\pgsql\lib -lshell32 -LF:\Qt\5.12.0\mingw73_64\lib F:\Qt\5.12.0\mingw73_64\lib\libQt5Core.a 
 QMAKE         = F:\Qt\5.12.0\mingw73_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -41,7 +41,7 @@ QINSTALL_PROGRAM = F:\Qt\5.12.0\mingw73_64\bin\qmake.exe -install qinstall -exe
 
 ####### Output directory
 
-OBJECTS_DIR   = debug
+OBJECTS_DIR   = release
 
 ####### Files
 
@@ -50,16 +50,16 @@ SOURCES       = ..\CargoManagementSystem\main.cpp \
 		..\CargoManagementSystem\cargo.cpp \
 		..\CargoManagementSystem\user.cpp \
 		..\CargoManagementSystem\stockpile.cpp \
-		..\CargoManagementSystem\mymessagebox.cpp debug\moc_mainwidget.cpp \
-		debug\moc_mymessagebox.cpp
-OBJECTS       = debug/main.o \
-		debug/mainwidget.o \
-		debug/cargo.o \
-		debug/user.o \
-		debug/stockpile.o \
-		debug/mymessagebox.o \
-		debug/moc_mainwidget.o \
-		debug/moc_mymessagebox.o
+		..\CargoManagementSystem\mymessagebox.cpp release\moc_mainwidget.cpp \
+		release\moc_mymessagebox.cpp
+OBJECTS       = release/main.o \
+		release/mainwidget.o \
+		release/cargo.o \
+		release/user.o \
+		release/stockpile.o \
+		release/mymessagebox.o \
+		release/moc_mainwidget.o \
+		release/moc_mymessagebox.o
 
 DIST          =  ..\CargoManagementSystem\mainwidget.h \
 		..\CargoManagementSystem\cargo.h \
@@ -72,33 +72,33 @@ DIST          =  ..\CargoManagementSystem\mainwidget.h \
 		..\CargoManagementSystem\stockpile.cpp \
 		..\CargoManagementSystem\mymessagebox.cpp
 QMAKE_TARGET  = CargoManagementSystem
-DESTDIR        = debug\ #avoid trailing-slash linebreak
+DESTDIR        = release\ #avoid trailing-slash linebreak
 TARGET         = CargoManagementSystem.exe
-DESTDIR_TARGET = debug\CargoManagementSystem.exe
+DESTDIR_TARGET = release\CargoManagementSystem.exe
 
 ####### Build rules
 
 first: all
-all: Makefile.Debug  debug/CargoManagementSystem.exe
+all: Makefile.Release  release/CargoManagementSystem.exe
 
-debug/CargoManagementSystem.exe: ui_mainwidget.h ui_mymessagebox.h $(OBJECTS) 
+release/CargoManagementSystem.exe: ui_mainwidget.h ui_mymessagebox.h $(OBJECTS) 
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) $(OBJECTS)  $(LIBS)
 
 qmake: FORCE
-	@$(QMAKE) -o Makefile.Debug ..\CargoManagementSystem\CargoManagementSystem.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
+	@$(QMAKE) -o Makefile.Release ..\CargoManagementSystem\CargoManagementSystem.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
 
 qmake_all: FORCE
 
 dist:
-	$(ZIP) CargoManagementSystem.zip $(SOURCES) $(DIST) ..\CargoManagementSystem\CargoManagementSystem.pro F:\Qt\5.12.0\mingw73_64\mkspecs\features\spec_pre.prf F:\Qt\5.12.0\mingw73_64\mkspecs\qdevice.pri F:\Qt\5.12.0\mingw73_64\mkspecs\features\device_config.prf F:\Qt\5.12.0\mingw73_64\mkspecs\common\sanitize.conf F:\Qt\5.12.0\mingw73_64\mkspecs\common\gcc-base.conf F:\Qt\5.12.0\mingw73_64\mkspecs\common\g++-base.conf F:\Qt\5.12.0\mingw73_64\mkspecs\common\angle.conf F:\Qt\5.12.0\mingw73_64\mkspecs\common\windows-vulkan.conf F:\Qt\5.12.0\mingw73_64\mkspecs\common\g++-win32.conf F:\Qt\5.12.0\mingw73_64\mkspecs\qconfig.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3danimation.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3danimation_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dcore.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dcore_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dextras.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dextras_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dinput.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dinput_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dlogic.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dlogic_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquick.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquick_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickextras.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickextras_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickinput.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickinput_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickrender.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickrender_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3drender.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3drender_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dstudioruntime2.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dstudioruntime2_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_accessibility_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axbase.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axbase_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axcontainer.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axcontainer_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axserver.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axserver_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_bluetooth.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_bluetooth_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_bootstrap_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_charts.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_charts_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_concurrent.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_concurrent_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_core.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_core_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_datavisualization.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_datavisualization_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_dbus.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_dbus_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_designer.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_designer_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_designercomponents_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_edid_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_egl_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_fb_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_gamepad.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_gamepad_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_gui.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_gui_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_help.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_help_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_location.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_location_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_multimedia.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_multimedia_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_network.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_network_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_networkauth.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_networkauth_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_nfc.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_nfc_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_opengl.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_opengl_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_openglextensions.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_openglextensions_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_packetprotocol_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_positioning.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_positioning_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_positioningquick.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_positioningquick_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_printsupport.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_printsupport_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_purchasing.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_purchasing_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qml.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qml_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qmldebug_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qmldevtools_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qmltest.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qmltest_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quick.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quick_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickparticles_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickshapes_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickwidgets.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickwidgets_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_remoteobjects.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_remoteobjects_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_repparser.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_repparser_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_script.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_script_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_scripttools.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_scripttools_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_scxml.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_scxml_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_sensors.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_sensors_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_serialbus.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_serialbus_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_serialport.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_serialport_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_sql.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_sql_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_svg.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_svg_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_testlib.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_testlib_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_texttospeech.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_texttospeech_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_theme_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_uiplugin.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_uitools.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_uitools_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_virtualkeyboard.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_vulkan_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_webchannel.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_webchannel_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_websockets.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_websockets_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_widgets.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_widgets_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_winextras.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_winextras_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_xml.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_xml_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\features\qt_functions.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\qt_config.prf F:\Qt\5.12.0\mingw73_64\mkspecs\win32-g++\qmake.conf F:\Qt\5.12.0\mingw73_64\mkspecs\features\spec_post.prf .qmake.stash F:\Qt\5.12.0\mingw73_64\mkspecs\features\exclusive_builds.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\toolchain.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\default_pre.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\win32\default_pre.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\resolve_config.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\exclusive_builds_post.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\default_post.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\build_pass.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\qml_debug.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\precompile_header.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\warn_on.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\qt.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\resources.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\moc.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\win32\opengl.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\uic.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\qmake_use.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\file_copies.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\win32\windows.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\testcase_targets.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\exceptions.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\yacc.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\lex.prf ..\CargoManagementSystem\CargoManagementSystem.pro F:\Qt\5.12.0\mingw73_64\lib\Qt5Widgetsd.prl F:\Qt\5.12.0\mingw73_64\lib\Qt5Guid.prl F:\Qt\5.12.0\mingw73_64\lib\Qt5Sqld.prl F:\Qt\5.12.0\mingw73_64\lib\Qt5Cored.prl F:\Qt\5.12.0\mingw73_64\lib\qtmaind.prl    F:\Qt\5.12.0\mingw73_64\mkspecs\features\data\dummy.cpp ..\CargoManagementSystem\mainwidget.h ..\CargoManagementSystem\cargo.h ..\CargoManagementSystem\user.h ..\CargoManagementSystem\stockpile.h ..\CargoManagementSystem\mymessagebox.h  ..\CargoManagementSystem\main.cpp ..\CargoManagementSystem\mainwidget.cpp ..\CargoManagementSystem\cargo.cpp ..\CargoManagementSystem\user.cpp ..\CargoManagementSystem\stockpile.cpp ..\CargoManagementSystem\mymessagebox.cpp ..\CargoManagementSystem\mainwidget.ui ..\CargoManagementSystem\mymessagebox.ui    
+	$(ZIP) CargoManagementSystem.zip $(SOURCES) $(DIST) ..\CargoManagementSystem\CargoManagementSystem.pro F:\Qt\5.12.0\mingw73_64\mkspecs\features\spec_pre.prf F:\Qt\5.12.0\mingw73_64\mkspecs\qdevice.pri F:\Qt\5.12.0\mingw73_64\mkspecs\features\device_config.prf F:\Qt\5.12.0\mingw73_64\mkspecs\common\sanitize.conf F:\Qt\5.12.0\mingw73_64\mkspecs\common\gcc-base.conf F:\Qt\5.12.0\mingw73_64\mkspecs\common\g++-base.conf F:\Qt\5.12.0\mingw73_64\mkspecs\common\angle.conf F:\Qt\5.12.0\mingw73_64\mkspecs\common\windows-vulkan.conf F:\Qt\5.12.0\mingw73_64\mkspecs\common\g++-win32.conf F:\Qt\5.12.0\mingw73_64\mkspecs\qconfig.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3danimation.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3danimation_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dcore.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dcore_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dextras.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dextras_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dinput.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dinput_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dlogic.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dlogic_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquick.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquick_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickextras.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickextras_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickinput.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickinput_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickrender.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickrender_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3drender.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3drender_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dstudioruntime2.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_3dstudioruntime2_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_accessibility_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axbase.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axbase_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axcontainer.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axcontainer_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axserver.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_axserver_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_bluetooth.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_bluetooth_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_bootstrap_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_charts.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_charts_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_concurrent.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_concurrent_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_core.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_core_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_datavisualization.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_datavisualization_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_dbus.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_dbus_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_designer.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_designer_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_designercomponents_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_edid_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_egl_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_fb_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_gamepad.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_gamepad_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_gui.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_gui_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_help.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_help_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_location.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_location_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_multimedia.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_multimedia_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_network.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_network_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_networkauth.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_networkauth_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_nfc.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_nfc_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_opengl.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_opengl_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_openglextensions.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_openglextensions_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_packetprotocol_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_positioning.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_positioning_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_positioningquick.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_positioningquick_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_printsupport.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_printsupport_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_purchasing.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_purchasing_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qml.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qml_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qmldebug_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qmldevtools_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qmltest.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qmltest_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quick.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quick_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickparticles_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickshapes_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickwidgets.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_quickwidgets_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_remoteobjects.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_remoteobjects_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_repparser.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_repparser_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_script.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_script_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_scripttools.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_scripttools_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_scxml.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_scxml_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_sensors.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_sensors_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_serialbus.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_serialbus_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_serialport.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_serialport_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_sql.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_sql_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_svg.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_svg_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_testlib.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_testlib_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_texttospeech.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_texttospeech_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_theme_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_uiplugin.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_uitools.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_uitools_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_virtualkeyboard.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_vulkan_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_webchannel.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_webchannel_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_websockets.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_websockets_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_widgets.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_widgets_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_winextras.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_winextras_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_xml.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_xml_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns.pri F:\Qt\5.12.0\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri F:\Qt\5.12.0\mingw73_64\mkspecs\features\qt_functions.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\qt_config.prf F:\Qt\5.12.0\mingw73_64\mkspecs\win32-g++\qmake.conf F:\Qt\5.12.0\mingw73_64\mkspecs\features\spec_post.prf .qmake.stash F:\Qt\5.12.0\mingw73_64\mkspecs\features\exclusive_builds.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\toolchain.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\default_pre.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\win32\default_pre.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\resolve_config.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\exclusive_builds_post.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\default_post.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\build_pass.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\resources.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\qtquickcompiler.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\precompile_header.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\warn_on.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\qt.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\moc.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\win32\opengl.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\uic.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\qmake_use.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\file_copies.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\win32\windows.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\testcase_targets.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\exceptions.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\yacc.prf F:\Qt\5.12.0\mingw73_64\mkspecs\features\lex.prf ..\CargoManagementSystem\CargoManagementSystem.pro F:\Qt\5.12.0\mingw73_64\lib\Qt5Widgets.prl F:\Qt\5.12.0\mingw73_64\lib\Qt5Gui.prl F:\Qt\5.12.0\mingw73_64\lib\Qt5Sql.prl F:\Qt\5.12.0\mingw73_64\lib\Qt5Core.prl F:\Qt\5.12.0\mingw73_64\lib\qtmain.prl      F:\Qt\5.12.0\mingw73_64\mkspecs\features\data\dummy.cpp ..\CargoManagementSystem\mainwidget.h ..\CargoManagementSystem\cargo.h ..\CargoManagementSystem\user.h ..\CargoManagementSystem\stockpile.h ..\CargoManagementSystem\mymessagebox.h  ..\CargoManagementSystem\main.cpp ..\CargoManagementSystem\mainwidget.cpp ..\CargoManagementSystem\cargo.cpp ..\CargoManagementSystem\user.cpp ..\CargoManagementSystem\stockpile.cpp ..\CargoManagementSystem\mymessagebox.cpp ..\CargoManagementSystem\mainwidget.ui ..\CargoManagementSystem\mymessagebox.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.o debug\mainwidget.o debug\cargo.o debug\user.o debug\stockpile.o debug\mymessagebox.o debug\moc_mainwidget.o debug\moc_mymessagebox.o
+	-$(DEL_FILE) release\main.o release\mainwidget.o release\cargo.o release\user.o release\stockpile.o release\mymessagebox.o release\moc_mainwidget.o release\moc_mymessagebox.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) $(DESTDIR_TARGET)
-	-$(DEL_FILE) Makefile.Debug
+	-$(DEL_FILE) Makefile.Release
 
 mocclean: compiler_moc_header_clean compiler_moc_objc_header_clean compiler_moc_source_clean
 
@@ -108,20 +108,25 @@ check: first
 
 benchmark: first
 
-compiler_no_pch_compiler_make_all:
-compiler_no_pch_compiler_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_predefs_make_all: debug/moc_predefs.h
+compiler_qmlcache_make_all:
+compiler_qmlcache_clean:
+compiler_qmlcache_loader_make_all: release/qmlcache_loader.cpp
+compiler_qmlcache_loader_clean:
+	-$(DEL_FILE) release\qmlcache_loader.cpp
+compiler_no_pch_compiler_make_all:
+compiler_no_pch_compiler_clean:
+compiler_moc_predefs_make_all: release/moc_predefs.h
 compiler_moc_predefs_clean:
-	-$(DEL_FILE) debug\moc_predefs.h
-debug/moc_predefs.h: F:/Qt/5.12.0/mingw73_64/mkspecs/features/data/dummy.cpp
-	g++ -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -dM -E -o debug\moc_predefs.h F:\Qt\5.12.0\mingw73_64\mkspecs\features\data\dummy.cpp
+	-$(DEL_FILE) release\moc_predefs.h
+release/moc_predefs.h: F:/Qt/5.12.0/mingw73_64/mkspecs/features/data/dummy.cpp
+	g++ -fno-keep-inline-dllexport -O2 -std=gnu++11 -Wall -W -Wextra -dM -E -o release\moc_predefs.h F:\Qt\5.12.0\mingw73_64\mkspecs\features\data\dummy.cpp
 
-compiler_moc_header_make_all: debug/moc_mainwidget.cpp debug/moc_mymessagebox.cpp
+compiler_moc_header_make_all: release/moc_mainwidget.cpp release/moc_mymessagebox.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug\moc_mainwidget.cpp debug\moc_mymessagebox.cpp
-debug/moc_mainwidget.cpp: F:/Qt/5.12.0/mingw73_64/include/QtWidgets/QWidget \
+	-$(DEL_FILE) release\moc_mainwidget.cpp release\moc_mymessagebox.cpp
+release/moc_mainwidget.cpp: F:/Qt/5.12.0/mingw73_64/include/QtWidgets/QWidget \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qwidget.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qtwidgetsglobal.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qtguiglobal.h \
@@ -240,11 +245,11 @@ debug/moc_mainwidget.cpp: F:/Qt/5.12.0/mingw73_64/include/QtWidgets/QWidget \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/QDialog \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qdialog.h \
 		../CargoManagementSystem/mainwidget.h \
-		debug/moc_predefs.h \
+		release/moc_predefs.h \
 		F:/Qt/5.12.0/mingw73_64/bin/moc.exe
-	F:\Qt\5.12.0\mingw73_64\bin\moc.exe $(DEFINES) --include E:/learn/share/co/CargoManagementSystem/build-CargoManagementSystem-Desktop_Qt_5_12_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IF:/Qt/5.12.0/mingw73_64/mkspecs/win32-g++ -IE:/learn/share/co/CargoManagementSystem/CargoManagementSystem -IF:/Qt/5.12.0/mingw73_64/include -IF:/Qt/5.12.0/mingw73_64/include/QtWidgets -IF:/Qt/5.12.0/mingw73_64/include/QtGui -IF:/Qt/5.12.0/mingw73_64/include/QtANGLE -IF:/Qt/5.12.0/mingw73_64/include/QtSql -IF:/Qt/5.12.0/mingw73_64/include/QtCore -I. -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -If:/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include ..\CargoManagementSystem\mainwidget.h -o debug\moc_mainwidget.cpp
+	F:\Qt\5.12.0\mingw73_64\bin\moc.exe $(DEFINES) --include E:/learn/share/co/CargoManagementSystem/build-CargoManagementSystem-Desktop_Qt_5_12_0_MinGW_64_bit-Release/release/moc_predefs.h -IF:/Qt/5.12.0/mingw73_64/mkspecs/win32-g++ -IE:/learn/share/co/CargoManagementSystem/CargoManagementSystem -IF:/Qt/5.12.0/mingw73_64/include -IF:/Qt/5.12.0/mingw73_64/include/QtWidgets -IF:/Qt/5.12.0/mingw73_64/include/QtGui -IF:/Qt/5.12.0/mingw73_64/include/QtANGLE -IF:/Qt/5.12.0/mingw73_64/include/QtSql -IF:/Qt/5.12.0/mingw73_64/include/QtCore -I. -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -If:/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include ..\CargoManagementSystem\mainwidget.h -o release\moc_mainwidget.cpp
 
-debug/moc_mymessagebox.cpp: F:/Qt/5.12.0/mingw73_64/include/QtWidgets/QDialog \
+release/moc_mymessagebox.cpp: F:/Qt/5.12.0/mingw73_64/include/QtWidgets/QDialog \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qdialog.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qtwidgetsglobal.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qtguiglobal.h \
@@ -349,9 +354,9 @@ debug/moc_mymessagebox.cpp: F:/Qt/5.12.0/mingw73_64/include/QtWidgets/QDialog \
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qvector2d.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qtouchdevice.h \
 		../CargoManagementSystem/mymessagebox.h \
-		debug/moc_predefs.h \
+		release/moc_predefs.h \
 		F:/Qt/5.12.0/mingw73_64/bin/moc.exe
-	F:\Qt\5.12.0\mingw73_64\bin\moc.exe $(DEFINES) --include E:/learn/share/co/CargoManagementSystem/build-CargoManagementSystem-Desktop_Qt_5_12_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IF:/Qt/5.12.0/mingw73_64/mkspecs/win32-g++ -IE:/learn/share/co/CargoManagementSystem/CargoManagementSystem -IF:/Qt/5.12.0/mingw73_64/include -IF:/Qt/5.12.0/mingw73_64/include/QtWidgets -IF:/Qt/5.12.0/mingw73_64/include/QtGui -IF:/Qt/5.12.0/mingw73_64/include/QtANGLE -IF:/Qt/5.12.0/mingw73_64/include/QtSql -IF:/Qt/5.12.0/mingw73_64/include/QtCore -I. -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -If:/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include ..\CargoManagementSystem\mymessagebox.h -o debug\moc_mymessagebox.cpp
+	F:\Qt\5.12.0\mingw73_64\bin\moc.exe $(DEFINES) --include E:/learn/share/co/CargoManagementSystem/build-CargoManagementSystem-Desktop_Qt_5_12_0_MinGW_64_bit-Release/release/moc_predefs.h -IF:/Qt/5.12.0/mingw73_64/mkspecs/win32-g++ -IE:/learn/share/co/CargoManagementSystem/CargoManagementSystem -IF:/Qt/5.12.0/mingw73_64/include -IF:/Qt/5.12.0/mingw73_64/include/QtWidgets -IF:/Qt/5.12.0/mingw73_64/include/QtGui -IF:/Qt/5.12.0/mingw73_64/include/QtANGLE -IF:/Qt/5.12.0/mingw73_64/include/QtSql -IF:/Qt/5.12.0/mingw73_64/include/QtCore -I. -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -If:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -If:/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include ..\CargoManagementSystem\mymessagebox.h -o release\moc_mymessagebox.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -380,7 +385,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-debug/main.o: ../CargoManagementSystem/main.cpp ../CargoManagementSystem/mainwidget.h \
+release/main.o: ../CargoManagementSystem/main.cpp ../CargoManagementSystem/mainwidget.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/QWidget \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qwidget.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -506,9 +511,9 @@ debug/main.o: ../CargoManagementSystem/main.cpp ../CargoManagementSystem/mainwid
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qdesktopwidget.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qguiapplication.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qinputmethod.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\CargoManagementSystem\main.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\CargoManagementSystem\main.cpp
 
-debug/mainwidget.o: ../CargoManagementSystem/mainwidget.cpp ../CargoManagementSystem/mainwidget.h \
+release/mainwidget.o: ../CargoManagementSystem/mainwidget.cpp ../CargoManagementSystem/mainwidget.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/QWidget \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qwidget.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -640,9 +645,9 @@ debug/mainwidget.o: ../CargoManagementSystem/mainwidget.cpp ../CargoManagementSy
 		F:/Qt/5.12.0/mingw73_64/include/QtSql/QSqlQuery \
 		F:/Qt/5.12.0/mingw73_64/include/QtSql/qsqlquery.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/QVariantList
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwidget.o ..\CargoManagementSystem\mainwidget.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwidget.o ..\CargoManagementSystem\mainwidget.cpp
 
-debug/cargo.o: ../CargoManagementSystem/cargo.cpp ../CargoManagementSystem/cargo.h \
+release/cargo.o: ../CargoManagementSystem/cargo.cpp ../CargoManagementSystem/cargo.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/QString \
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/qstring.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/qchar.h \
@@ -675,9 +680,9 @@ debug/cargo.o: ../CargoManagementSystem/cargo.cpp ../CargoManagementSystem/cargo
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/qstringalgorithms.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/qstringview.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/qstringbuilder.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\cargo.o ..\CargoManagementSystem\cargo.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\cargo.o ..\CargoManagementSystem\cargo.cpp
 
-debug/user.o: ../CargoManagementSystem/user.cpp ../CargoManagementSystem/user.h \
+release/user.o: ../CargoManagementSystem/user.cpp ../CargoManagementSystem/user.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/QList \
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qevent.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qtguiglobal.h \
@@ -761,9 +766,9 @@ debug/user.o: ../CargoManagementSystem/user.cpp ../CargoManagementSystem/user.h 
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qtouchdevice.h \
 		../CargoManagementSystem/cargo.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/QString
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\user.o ..\CargoManagementSystem\user.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\user.o ..\CargoManagementSystem\user.cpp
 
-debug/stockpile.o: ../CargoManagementSystem/stockpile.cpp ../CargoManagementSystem/stockpile.h \
+release/stockpile.o: ../CargoManagementSystem/stockpile.cpp ../CargoManagementSystem/stockpile.h \
 		../CargoManagementSystem/cargo.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/QString \
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/qstring.h \
@@ -882,9 +887,9 @@ debug/stockpile.o: ../CargoManagementSystem/stockpile.cpp ../CargoManagementSyst
 		F:/Qt/5.12.0/mingw73_64/include/QtSql/QSqlQuery \
 		F:/Qt/5.12.0/mingw73_64/include/QtSql/qsqlquery.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtCore/QVariantList
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\stockpile.o ..\CargoManagementSystem\stockpile.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\stockpile.o ..\CargoManagementSystem\stockpile.cpp
 
-debug/mymessagebox.o: ../CargoManagementSystem/mymessagebox.cpp ../CargoManagementSystem/mymessagebox.h \
+release/mymessagebox.o: ../CargoManagementSystem/mymessagebox.cpp ../CargoManagementSystem/mymessagebox.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/QDialog \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qdialog.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -990,13 +995,13 @@ debug/mymessagebox.o: ../CargoManagementSystem/mymessagebox.cpp ../CargoManageme
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qvector2d.h \
 		F:/Qt/5.12.0/mingw73_64/include/QtGui/qtouchdevice.h \
 		ui_mymessagebox.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mymessagebox.o ..\CargoManagementSystem\mymessagebox.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mymessagebox.o ..\CargoManagementSystem\mymessagebox.cpp
 
-debug/moc_mainwidget.o: debug/moc_mainwidget.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_mainwidget.o debug\moc_mainwidget.cpp
+release/moc_mainwidget.o: release/moc_mainwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_mainwidget.o release\moc_mainwidget.cpp
 
-debug/moc_mymessagebox.o: debug/moc_mymessagebox.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_mymessagebox.o debug\moc_mymessagebox.cpp
+release/moc_mymessagebox.o: release/moc_mymessagebox.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_mymessagebox.o release\moc_mymessagebox.cpp
 
 ####### Install
 

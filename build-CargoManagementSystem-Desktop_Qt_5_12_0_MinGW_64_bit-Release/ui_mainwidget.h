@@ -226,7 +226,7 @@ public:
         label_9->setText(QApplication::translate("MainWidget", "\350\257\264\346\230\216", nullptr));
         ware_house_add->setText(QApplication::translate("MainWidget", "\346\267\273\345\212\240\350\264\247\347\211\251", nullptr));
         warehouse_change->setText(QApplication::translate("MainWidget", "\344\277\256\346\224\271\350\264\247\347\211\251", nullptr));
-        label_15->setText(QApplication::translate("MainWidget", "\344\273\223\345\272\223\347\256\241\347\220\206", nullptr));
+        label_15->setText(QApplication::translate("MainWidget", "\350\264\247\346\236\266\347\256\241\347\220\206", nullptr));
         label_16->setText(QApplication::translate("MainWidget", "\350\264\247\347\211\251\345\220\215\347\247\260", nullptr));
         label_17->setText(QApplication::translate("MainWidget", "\346\225\260\351\207\217", nullptr));
         label_18->setText(QApplication::translate("MainWidget", "\345\215\225\344\273\267", nullptr));

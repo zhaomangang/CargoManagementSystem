@@ -15,12 +15,14 @@ public:
     QString returnExplain();
     void reduceAmount(uint amo);    //减少数量
 
-private:
     QString cargo_name; //商品名称
     uint amount;    //需要的数目
     double price; //单价
     uint wight; //重量
     QString explain;    //说明
+
+private:
+
 
 };
 
