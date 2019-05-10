@@ -202,25 +202,6 @@ void MainWidget::slotAffrimCharge(uint user)
 {
     //确认收取时
     qDebug()<<"line107"<<user;
-    //添加日志
-    double pri = 0,wigh = 0;
-    QDateTime current_date_time =QDateTime::currentDateTime();
-    QString current_date =current_date_time.toString("yyyy.MM.dd hh:mm:ss.zzz ddd");
-    ui->display_logo->append(current_date);
-    for(int i=0;i<user_list.at(user)->cargo_list.size();i++)
-    {
-        qDebug()<<"line 212 cargo_"<<user_list.at(user)->cargo_list.at(i)->returnPrice();
-        pri = pri+ user_list.at(user)->cargo_list.at(i)->returnPrice() * user_list.at(user)->cargo_list.at(i)->returnAmount();
-        wigh = wigh+ user_list.at(user)->cargo_list.at(i)->returnWight() * user_list.at(user)->cargo_list.at(i)->returnAmount();
-
-        QString te = QString("%1 *%2").arg(user_list.at(user)->cargo_list.at(i)->returnName())
-                .arg(user_list.at(user)->cargo_list.at(i)->returnAmount());
-        //tem.append(te);
-        ui->display_logo->append(te);
-    }
-    qDebug()<<"line220"<<wigh<<pri;
-    QString temp = (QString("总重：%1 总价：%2")).arg(wigh).arg(pri);
-    ui->display_logo->append(temp);
     //寻找所需货物
     bool ware = false;  //仓库中是否找到
     bool shar = false;  //货架
@@ -343,7 +324,6 @@ void MainWidget::slotAffrimCharge(uint user)
     updateShelf();
     updateWorehouse();
 
-
 }
 
 void MainWidget::getCargo()
@@ -365,8 +345,6 @@ void MainWidget::getCargo()
                 //仓库中找到
                 ware = true;
                 qDebug()<<"cangku zhao dao ";
-                user_list.last()->cargo_list.at(i)->price = warehouse.cargo_list.at(j)->returnPrice();
-                user_list.last()->cargo_list.at(i)->wight = warehouse.cargo_list.at(j)->returnWight();
                 QString temp = QString("%1\t%2\t%3\t%4\t%5").arg(user_list.last()->cargo_list.at(i)->returnName())
                         .arg(user_list.last()->cargo_list.at(i)->returnAmount())
                         .arg(warehouse.cargo_list.at(j)->returnPrice())
@@ -394,8 +372,6 @@ void MainWidget::getCargo()
                         if(user_list.last()->cargo_list.at(i)->returnName()==shelf.cargo_list.at(j)->returnName())
                         {
                             //货架中找到
-                            user_list.last()->cargo_list.at(i)->price = shelf.cargo_list.at(j)->returnPrice();
-                            user_list.last()->cargo_list.at(i)->wight = shelf.cargo_list.at(j)->returnWight();
                             shar = true;
                             qDebug()<<"cangku bu gou huojia zhao dao ";
                             qDebug()<<amount_temp;
@@ -451,8 +427,6 @@ void MainWidget::getCargo()
                     {
                         if(user_list.last()->cargo_list.at(i)->returnName()==shelf.cargo_list.at(j)->returnName())
                         {
-                            user_list.last()->cargo_list.at(i)->price = shelf.cargo_list.at(j)->returnPrice();
-                            user_list.last()->cargo_list.at(i)->wight = shelf.cargo_list.at(j)->returnWight();
                             //货架中找到
                             shar = true;
                             qDebug()<<"cangku bu weizhao dao huo jia zhao dao";
@@ -523,11 +497,22 @@ void MainWidget::getCargo()
         reminder_temp->setInfo(infor,user_list.size()-1);
         message_list.append(reminder_temp);
         connect(reminder_temp,&MyMessageBox::sigCharge,this,&MainWidget::slotAffrimCharge);
+        //添加日志
 
+        QDateTime current_date_time =QDateTime::currentDateTime();
+        QString current_date =current_date_time.toString("yyyy.MM.dd hh:mm:ss.zzz ddd");
+        ui->display_logo->append(current_date);
+        for(int i=0;i<user_list.last()->cargo_list.size();i++)
+        {
+            QString te = QString("%1 *%2").arg(user_list.last()->cargo_list.at(i)->returnName())
+                    .arg(user_list.last()->cargo_list.at(i)->returnAmount());
+            //tem.append(te);
+            ui->display_logo->append(te);
+        }
+        ui->display_logo->append(temp);
 
 
     }
-
 
 
 
