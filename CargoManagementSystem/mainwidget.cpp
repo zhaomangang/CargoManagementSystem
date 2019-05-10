@@ -320,6 +320,7 @@ void MainWidget::slotAffrimCharge(uint user)
         }
 
     }
+
     updateShelf();
     updateWorehouse();
 
@@ -496,152 +497,24 @@ void MainWidget::getCargo()
         reminder_temp->setInfo(infor,user_list.size()-1);
         message_list.append(reminder_temp);
         connect(reminder_temp,&MyMessageBox::sigCharge,this,&MainWidget::slotAffrimCharge);
+        //添加日志
 
-    }
-
-
-/*
-    for(int i=0;i<user_list.last()->cargo_list.size();i++)
-    {
-         qDebug()<<"line73"<<" "<<warehouse.cargo_list.size();
-        for(int j=0;j<warehouse.cargo_list.size();j++)
+        QDateTime current_date_time =QDateTime::currentDateTime();
+        QString current_date =current_date_time.toString("yyyy.MM.dd hh:mm:ss.zzz ddd");
+        ui->display_logo->append(current_date);
+        for(int i=0;i<user_list.last()->cargo_list.size();i++)
         {
-            if(user_list.last()->cargo_list.at(i)->returnName()==warehouse.cargo_list.at(j)->returnName())
-            {
-                //仓库中找到货物
-                QString temp = QString("%1\t%2\t%3\t%4\t%5").arg(user_list.last()->cargo_list.at(i)->returnName())
-                        .arg(user_list.last()->cargo_list.at(i)->returnAmount())
-                        .arg(warehouse.cargo_list.at(j)->returnPrice())
-                        .arg(warehouse.cargo_list.at(j)->returnWight())
-                        .arg(warehouse.cargo_list.at(j)->returnExplain());
-                infor.append(temp);
-                infor.append("\n");
-                if(user_list.last()->cargo_list.at(i)->returnAmount() <= warehouse.cargo_list.at(j)->returnAmount())
-                {
-                    //仓库中货物够
-                    qDebug()<<"line80"<<warehouse.cargo_list.at(j)->returnWight();
-                    //ui->display->append(temp);
-                    price += warehouse.cargo_list.at(j)->returnPrice()*user_list.last()->cargo_list.at(i)->returnAmount();
-                    wight += warehouse.cargo_list.at(j)->returnWight()*user_list.last()->cargo_list.at(i)->returnAmount();
-                    look_for = true;
-                }else{
-                    //仓库存货不足,
-                    //计算需要从货架取货量
-                    amount_temp = user_list.last()->cargo_list.at(i)->returnAmount() - warehouse.cargo_list.at(j)->returnAmount();
-                    price += warehouse.cargo_list.at(j)->returnPrice()*warehouse.cargo_list.at(j)->returnAmount();
-                    wight += warehouse.cargo_list.at(j)->returnWight()*warehouse.cargo_list.at(j)->returnAmount();
-                    //仓库取完后需要从货架取
-                    for(int j=0;j<shelf.cargo_list.size();j++)
-                    {
-                        if(user_list.last()->cargo_list.at(i)->returnName()==shelf.cargo_list.at(j)->returnName())
-                        {
-                            //货架找到货物
-                            if(amount_temp <= shelf.cargo_list.at(j)->returnAmount())
-                            {
-                                //货架中货物够
-                                qDebug()<<"line107"<<shelf.cargo_list.at(j)->returnWight();
-                                //ui->display->append(temp);
-                                price += shelf.cargo_list.at(j)->returnPrice()*amount_temp;
-                                wight += shelf.cargo_list.at(j)->returnWight()*amount_temp;
-                                look_for = true;
-                            }else{
-                                //存货不足,货架有但是不够
-                                QString temp = QString("仓库+货架中[%1]不足 目前剩余:%2 \n需要：%3")
-                                        .arg(shelf.cargo_list.at(j)->returnName())
-                                        .arg(user_list.last()->cargo_list.at(i)->returnAmount()-amount_temp+shelf.cargo_list.at(j)->returnAmount())
-                                        .arg(user_list.last()->cargo_list.at(i)->returnAmount());
-                                QMessageBox::warning(this,QStringLiteral("库存不足"),temp);//对话框提示
-                                look_for = false;
-
-
-                            }
-
-                        }else{
-                            if(j==shelf.cargo_list.size()-1)
-                            {
-                                //仓库不足，货架无
-                                QString temp = QString("[%1]仓库不足货架无 目前剩余:%2 \n需要：%3")
-                                        .arg(shelf.cargo_list.at(j)->returnName())
-                                        .arg(user_list.last()->cargo_list.at(i)->returnAmount()-amount_temp)
-                                        .arg(user_list.last()->cargo_list.at(i)->returnAmount());
-                                QMessageBox::warning(this,QStringLiteral("库存不足"),temp);//对话框提示
-                                look_for = false;
-                            }
-                        }
-                    }
-                }
-
-            }else{
-                 qDebug()<<"line142"<<" "<<warehouse.cargo_list.size();
-                if(j==warehouse.cargo_list.size())
-                {
-                    //仓库中未找到货物
-                    qDebug()<<"line144"<<j<<" "<<warehouse.cargo_list.size();
-                    for(int j=0;j<shelf.cargo_list.size();j++)
-                    {
-                        if(user_list.last()->cargo_list.at(i)->returnName()==shelf.cargo_list.at(j)->returnName())
-                        {
-                            //货架找到货物
-                            QString temp = QString("%1\t%2\t%3\t%4\t%5").arg(user_list.last()->cargo_list.at(i)->returnName())
-                                    .arg(user_list.last()->cargo_list.at(i)->returnAmount())
-                                    .arg(shelf.cargo_list.at(j)->returnPrice())
-                                    .arg(shelf.cargo_list.at(j)->returnWight())
-                                    .arg(shelf.cargo_list.at(j)->returnExplain());
-                            infor.append(temp);
-                            infor.append("\n");
-                            if(user_list.last()->cargo_list.at(i)->returnAmount() <= shelf.cargo_list.at(j)->returnAmount())
-                            {
-                                //货架中货物够
-                                qDebug()<<"line143"<<shelf.cargo_list.at(j)->returnWight();
-                                //ui->display->append(temp);
-                                price += shelf.cargo_list.at(j)->returnPrice()*user_list.last()->cargo_list.at(i)->returnAmount();
-                                wight += shelf.cargo_list.at(j)->returnWight()*user_list.last()->cargo_list.at(i)->returnAmount();
-                                look_for = true;
-                            }else{
-
-                                //货架存货不足,
-
-                                QString temp = QString("仓库中无货,货架货物不足。\n%1 目前剩余:%2 \n需要：%3")
-                                        .arg(shelf.cargo_list.at(j)->returnName())
-                                        .arg(shelf.cargo_list.at(j)->returnAmount())
-                                        .arg(user_list.last()->cargo_list.at(i)->returnAmount());
-                                QMessageBox::warning(this,QStringLiteral("库存不足"),temp);//对话框提示
-                                look_for = false;
-                            }
-
-                        }else {
-                            if(j==shelf.cargo_list.size()-1)
-                            {
-                                //货架与仓库中未找到货物
-                                QString temp = QString("%1 仓库中无货,货架中无货");
-                                QMessageBox::warning(this,QStringLiteral("库存不足"),temp);//对话框提示
-                                look_for = false;
-
-                            }
-                        }
-                    }
-
-                }
-            }
-
+            QString te = QString("%1 *%2").arg(user_list.last()->cargo_list.at(i)->returnName())
+                    .arg(user_list.last()->cargo_list.at(i)->returnAmount());
+            //tem.append(te);
+            ui->display_logo->append(te);
         }
+        ui->display_logo->append(temp);
 
 
     }
-    if(look_for=true)
-    {
-        //找到了所有货物后
-        QString temp = QString("总价：%1 总重量：%2").arg(price).arg(wight);
-        infor.append(temp);
-        infor.append("\n是否收取？");
-        //弹出对话框并添加进消息列表
-        MyMessageBox *reminder_temp = new MyMessageBox();
-        reminder_temp->setInfo(infor,user_list.size()-1);
-        message_list.append(reminder_temp);
-        connect(reminder_temp,&MyMessageBox::sigCharge,this,&MainWidget::slotAffrimCharge);
 
-    }
-    */
+
 
 }
 
@@ -730,7 +603,7 @@ void MainWidget::on_warehouse_change_clicked()
             }
             if(ui->price_c->text()!="")
             {
-                warehouse.cargo_list.at(i)->price = ui->price_c->text().toInt();
+                warehouse.cargo_list.at(i)->price = ui->price_c->text().toDouble();
             }
             if(ui->wight_c->text()!="")
             {
@@ -739,7 +612,7 @@ void MainWidget::on_warehouse_change_clicked()
             }
             if(ui->explain_c->text()!="")
             {
-                warehouse.cargo_list.at(i)->explain = ui->explain_c->text().toInt();
+                warehouse.cargo_list.at(i)->explain = ui->explain_c->text();
             }
         }
     }
@@ -783,7 +656,7 @@ void MainWidget::on_shelf_change_clicked()
             }
             if(ui->price_c->text()!="")
             {
-                shelf.cargo_list.at(i)->price = ui->price_h->text().toInt();
+                shelf.cargo_list.at(i)->price = ui->price_h->text().toDouble();
             }
             if(ui->wight_c->text()!="")
             {
@@ -792,7 +665,7 @@ void MainWidget::on_shelf_change_clicked()
             }
             if(ui->explain_c->text()!="")
             {
-                shelf.cargo_list.at(i)->explain = ui->explain_h->text().toInt();
+                shelf.cargo_list.at(i)->explain = ui->explain_h->text();
             }
         }
     }

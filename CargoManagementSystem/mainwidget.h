@@ -1,6 +1,8 @@
 ﻿#ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
+#include <QDateTime>
+#include <QDir>
 #include <QWidget>
 #include <QList>
 #include "user.h"

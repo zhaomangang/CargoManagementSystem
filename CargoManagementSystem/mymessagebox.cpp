@@ -16,6 +16,8 @@ MyMessageBox::~MyMessageBox()
 
 void MyMessageBox::setInfo(QString info, uint user_monent)
 {
+    QString temp = QString("记录%1").arg(user_monent);
+    ui->display->append(temp);
     ui->display->append(QStringLiteral("名称\t数目\t价格\t重量\t备注"));
     ui->display->append(info);
     this->user = user_monent;

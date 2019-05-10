@@ -64,12 +64,14 @@ public:
     QLineEdit *explain_h;
     QPushButton *shelf_add;
     QPushButton *shelf_change;
+    QTextEdit *display_logo;
+    QLabel *label_4;
 
     void setupUi(QWidget *MainWidget)
     {
         if (MainWidget->objectName().isEmpty())
             MainWidget->setObjectName(QString::fromUtf8("MainWidget"));
-        MainWidget->resize(901, 559);
+        MainWidget->resize(901, 614);
         frame = new QFrame(MainWidget);
         frame->setObjectName(QString::fromUtf8("frame"));
         frame->setGeometry(QRect(100, 260, 248, 151));
@@ -205,6 +207,13 @@ public:
         shelf_change = new QPushButton(widget_3);
         shelf_change->setObjectName(QString::fromUtf8("shelf_change"));
         shelf_change->setGeometry(QRect(200, 70, 93, 28));
+        display_logo = new QTextEdit(MainWidget);
+        display_logo->setObjectName(QString::fromUtf8("display_logo"));
+        display_logo->setGeometry(QRect(490, 390, 401, 191));
+        display_logo->setReadOnly(true);
+        label_4 = new QLabel(MainWidget);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setGeometry(QRect(500, 360, 61, 16));
 
         retranslateUi(MainWidget);
 
@@ -234,6 +243,7 @@ public:
         label_20->setText(QApplication::translate("MainWidget", "\350\257\264\346\230\216", nullptr));
         shelf_add->setText(QApplication::translate("MainWidget", "\346\267\273\345\212\240\350\264\247\347\211\251", nullptr));
         shelf_change->setText(QApplication::translate("MainWidget", "\344\277\256\346\224\271\350\264\247\347\211\251", nullptr));
+        label_4->setText(QApplication::translate("MainWidget", "\346\224\266\345\217\226\346\227\245\345\277\227", nullptr));
     } // retranslateUi
 
 };
